@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# VectorFeed
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+VectorFeed is a lightweight experimental project that explores how a simple recommendation system can be built from scratch using basic vector mathematics and user interaction signals.
 
-## Available Scripts
+The core idea is to simulate a minimal machine learning-like system without relying on external ML libraries. Instead of training models, the system represents user preferences as a vector in a tag-based feature space and continuously updates it based on user behavior.
 
-In the project directory, you can run:
+## Concept
 
-### `npm start`
+Each card contains a set of tags (e.g. "fitness", "mindset", "humor").
+These tags define a shared feature space across the entire application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The user is represented as a vector where each dimension corresponds to a tag.
+Interactions such as likes, clicks, comments, and dislikes modify this vector over time.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+A scoring function (dot product) is used to determine how relevant a card is for a user based on their current preferences.
 
-### `npm test`
+## Core Mechanics
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **User Vector**
+  Stores the current state of user interests as weighted tag values.
 
-### `npm run build`
+* **Interactions**
+  User actions (like, click, comment, dislike) update the vector with predefined weights.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **Decay**
+  Interests fade over time using exponential decay to keep the system dynamic.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* **Normalization**
+  The user vector is normalized to prevent uncontrolled growth and maintain stable comparisons.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* **Scoring**
+  Cards are ranked using a dot product between the user vector and card tags.
 
-### `npm run eject`
+* **Exploration**
+  Some randomness is introduced to avoid repetition and discover new interests.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* `config/`
+  Defines the global feature space (allowed tags)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* `engine/`
+  Contains the core logic:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  * updating user preferences
+  * applying decay
+  * scoring cards
+  * vector math utilities
+  * exploration strategies
 
-## Learn More
+* `components/`
+  UI components such as Card and Feed
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* `hooks/`
+  React hooks managing state and orchestrating the system (e.g. `useFeed`)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* `data/`
+  Static dataset of cards
 
-### Code Splitting
+## Goal
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The goal of this project is not to build a production-ready recommendation engine, but to deeply understand the mechanics behind:
 
-### Analyzing the Bundle Size
+* feature spaces
+* vector representations
+* ranking systems
+* feedback loops
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+It serves as a foundation that could later be extended into more advanced approaches such as embeddings or collaborative filtering.
 
-### Making a Progressive Web App
+## Status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This is an early-stage prototype and subject to frequent changes.
