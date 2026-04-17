@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { updateUserVector } from "../engine/updater";
 import { applyDecay } from "../engine/decay";
 import { normalize } from "../engine/vector";
+import { tags } from "../config/tags";
 
 export default function useFeed() {
   const [userVector, setUserVector] = useState({});
@@ -14,6 +15,11 @@ export default function useFeed() {
     const storedVector = localStorage.getItem("userVector");
     if (storedVector) {
       setUserVector(JSON.parse(storedVector));
+    } else {
+      const initialVector = {};
+      tags.forEach((tag) => (initialVector[tag] = 0));
+      setUserVector(initialVector);
+      console.log("Initialized user vector:", initialVector);
     }
   }, []);
 

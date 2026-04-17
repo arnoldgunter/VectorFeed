@@ -1,0 +1,49 @@
+.feed {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--text-primary);
+}
+
+.resetButton {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.resetButton:hover {
+  background-color: #b0003a;
+}
+
+.resetButton:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}

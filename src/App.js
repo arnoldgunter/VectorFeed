@@ -1,9 +1,9 @@
-import './App.css';
+import styles from './styles/App.module.css';
 import Feed from './components/Feed';
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
       <Feed />
     </div>
   );
