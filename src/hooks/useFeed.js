@@ -30,7 +30,7 @@ export default function useFeed() {
 
   function interact(action, card) {
     let updatedVector = { ...userVector };
-    updatedVector = applyDecay(updatedVector);
+    // updatedVector = applyDecay(updatedVector);
     updatedVector = updateUserVector(updatedVector, action, card);
     updatedVector = normalize(updatedVector);
     setUserVector(updatedVector);
