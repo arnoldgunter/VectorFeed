@@ -5,6 +5,7 @@ import { applyDecay } from "../engine/decay";
 import { tags } from "../config/tags";
 import { scoreCard } from "../engine/scorer";
 import { cards } from "../data/cards";
+import { injectNewCards } from "../engine/explorer";
 
 function createInitialVector() {
   return tags.reduce((acc, tag) => {
@@ -39,16 +40,20 @@ export default function useFeed() {
 
     setUserVector(updatedVector);
   }
-
+  
   function feed() {
-    return cards
+    const scored = cards
       .map((card) => ({
         ...card,
         score: scoreCard(userVector, card),
       }))
       .sort((a, b) => b.score - a.score)
       .slice(0, 20);
+
+    const withExploration = injectNewCards(scored, cards);
+
+    return withExploration;
   }
 
-  return { resetUserVector, interact, userVector, feed };
+  return { userVector, resetUserVector, interact, feed };
 }

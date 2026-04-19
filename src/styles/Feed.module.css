@@ -1,6 +1,6 @@
 .feed {
-  max-width: 800px;
-  width: 100%;
+  max-width: 2400px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
@@ -42,8 +42,19 @@
   outline-offset: 2px;
 }
 
+.content {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+  align-items: stretch;
+  gap: var(--spacing-lg);
+}
+
 .cardsContainer {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+}
+
+.userChart {
+  min-height: 520px;
 }
