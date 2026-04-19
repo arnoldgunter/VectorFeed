@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { updateUserVector } from "../engine/updater";
-import { applyDecay } from "../engine/decay";
 import { normalize } from "../engine/vector";
+import { applyDecay } from "../engine/decay";
 import { tags } from "../config/tags";
 
+const initialVector = tags.reduce((acc, tag) => {
+  acc[tag] = 0;
+  return acc;
+}, {});
+
 export default function useFeed() {
-  const [userVector, setUserVector] = useState({});
+  const [userVector, setUserVector] = useState(initialVector);
 
   useEffect(() => {
     localStorage.setItem("userVector", JSON.stringify(userVector));
@@ -15,22 +20,17 @@ export default function useFeed() {
     const storedVector = localStorage.getItem("userVector");
     if (storedVector) {
       setUserVector(JSON.parse(storedVector));
-    } else {
-      const initialVector = {};
-      tags.forEach((tag) => (initialVector[tag] = 0));
-      setUserVector(initialVector);
-      console.log("Initialized user vector:", initialVector);
     }
   }, []);
 
   function resetUserVector() {
-    localStorage.removeItem("userVector");
-    setUserVector({});
+    setUserVector(initialVector);
   }
 
   function interact(action, card) {
     let updatedVector = { ...userVector };
-    // updatedVector = applyDecay(updatedVector);
+    let clickedTags = card.tags || [];
+    updatedVector = applyDecay(updatedVector, clickedTags);
     updatedVector = updateUserVector(updatedVector, action, card);
     updatedVector = normalize(updatedVector);
     setUserVector(updatedVector);

@@ -7,6 +7,8 @@ export const ACTION_WEIGHTS = {
   dislike: -2
 };
 
+export const DECAY_RATE = 0.99;
+
 export function validateCard(card) {
   return Array.isArray(card.tags);
 }
