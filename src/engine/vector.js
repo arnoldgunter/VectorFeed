@@ -15,13 +15,3 @@ export function normalize(vector) {
   }
   return normalizedVector;
 }
-
-export function dotProduct(vecA, vecB) {
-  let product = 0;
-  for (const key in vecA) {
-    if (vecB[key] !== undefined) {
-      product += vecA[key] * vecB[key];
-    }
-  }
-  return product;
-}
