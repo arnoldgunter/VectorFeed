@@ -48,7 +48,7 @@ export default function useFeed() {
         score: scoreCard(userVector, card),
       }))
       .sort((a, b) => b.score - a.score)
-      .slice(0, 20);
+      .slice(0, 50);
 
     const withExploration = injectNewCards(scored, cards);
 

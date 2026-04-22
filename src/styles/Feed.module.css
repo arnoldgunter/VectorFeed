@@ -51,7 +51,8 @@
 
 .cardsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: var(--spacing-md);
 }
 
