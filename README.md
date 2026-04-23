@@ -1,73 +1,147 @@
 # VectorFeed
 
-VectorFeed is a lightweight experimental project that explores how a simple recommendation system can be built from scratch using basic vector mathematics and user interaction signals.
+A simple experimental recommendation system based on user interactions and tag-weight vectors.
 
-The core idea is to simulate a minimal machine learning-like system without relying on external ML libraries. Instead of training models, the system represents user preferences as a vector in a tag-based feature space and continuously updates it based on user behavior.
+**Live Demo:**
+[https://vector-feed.vercel.app/](https://vector-feed.vercel.app/)
 
-## Concept
+---
 
-Each card contains a set of tags (e.g. "fitness", "mindset", "humor").
-These tags define a shared feature space across the entire application.
+## Overview
 
-The user is represented as a vector where each dimension corresponds to a tag.
-Interactions such as likes, clicks, comments, and dislikes modify this vector over time.
+VectorFeed is a minimal implementation of a feed ranking system.
 
-A scoring function (dot product) is used to determine how relevant a card is for a user based on their current preferences.
+Each user is represented by a vector of tag preferences.
+Each interaction (like, click, dislike, comment) updates this vector.
+Content is then ranked based on how well it matches the user profile.
 
-## Core Mechanics
+The goal is not production quality, but understanding how recommendation systems work at a fundamental level.
 
-* **User Vector**
-  Stores the current state of user interests as weighted tag values.
+---
 
-* **Interactions**
-  User actions (like, click, comment, dislike) update the vector with predefined weights.
+## How it works
 
-* **Decay**
-  Interests fade over time using exponential decay to keep the system dynamic.
+### 1. Feature Space
 
-* **Normalization**
-  The user vector is normalized to prevent uncontrolled growth and maintain stable comparisons.
+All tags define a shared feature space:
 
-* **Scoring**
-  Cards are ranked using a dot product between the user vector and card tags.
+```text
+["fitness", "mindset", "humor", "tech", ...]
+```
 
-* **Exploration**
-  Some randomness is introduced to avoid repetition and discover new interests.
+Each user has a weight for every tag.
+
+---
+
+### 2. User Vector
+
+Example:
+
+```text
+fitness: 0.8
+mindset: 0.3
+humor: 0.1
+```
+
+The vector is updated based on interactions and normalized to keep values stable.
+
+---
+
+### 3. Scoring
+
+Each card has tags:
+
+```text
+["fitness", "discipline"]
+```
+
+Score is computed as:
+
+```text
+average(user[tag] for tag in card.tags)
+```
+
+This avoids bias toward cards with many tags.
+
+---
+
+### 4. Exploration
+
+The system injects cards with tags the user rarely interacts with.
+
+This prevents the feed from becoming too narrow and helps discover new interests.
+
+---
+
+## Screenshots
+
+### Feed
+
+![Feed Screenshot](./sc_feed.png)
+
+---
+
+### User Preference Chart
+
+![Chart Screenshot](./sc_chart.png)
+
+---
+
+## Tech Stack
+
+* React
+* Recharts
+* LocalStorage (for persistence)
+* No backend
+
+---
 
 ## Project Structure
 
-* `config/`
-  Defines the global feature space (allowed tags)
+```text
+src/
+  components/     UI (Feed, Card, Chart)
+  engine/         Core logic (scoring, update, decay, exploration)
+  hooks/          useFeed (state + logic orchestration)
+  data/           Static card dataset
+  config/         Tags / feature space
+```
 
-* `engine/`
-  Contains the core logic:
+---
 
-  * updating user preferences
-  * applying decay
-  * scoring cards
-  * vector math utilities
-  * exploration strategies
+## Limitations
 
-* `components/`
-  UI components such as Card and Feed
+* No real machine learning (rule-based system)
+* No embeddings
+* No collaborative filtering
+* Static dataset
+* Client-side only
 
-* `hooks/`
-  React hooks managing state and orchestrating the system (e.g. `useFeed`)
+---
 
-* `data/`
-  Static dataset of cards
+## Why this project exists
 
-## Goal
+To understand:
 
-The goal of this project is not to build a production-ready recommendation engine, but to deeply understand the mechanics behind:
+* how recommendation systems work
+* how user behavior translates into signals
+* how ranking and exploration interact
 
-* feature spaces
-* vector representations
-* ranking systems
-* feedback loops
+---
 
-It serves as a foundation that could later be extended into more advanced approaches such as embeddings or collaborative filtering.
+## Possible Improvements
 
-## Status
+* cosine similarity instead of simple averaging
+* time-based decay per tag
+* better exploration strategy (epsilon-greedy / UCB)
+* persistent backend
+* real user data
 
-This is an early-stage prototype and subject to frequent changes.
+---
+
+## Run locally
+
+```bash
+npm install
+npm start
+```
