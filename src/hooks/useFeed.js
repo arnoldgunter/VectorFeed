@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { updateUserVector } from "../engine/updater";
 import { normalize } from "../engine/vector";
 import { applyDecay } from "../engine/decay";
@@ -41,19 +41,19 @@ export default function useFeed() {
     setUserVector(updatedVector);
   }
   
-  function feed() {
+  const feed = useMemo(() => {
     const scored = cards
       .map((card) => ({
         ...card,
         score: scoreCard(userVector, card),
       }))
       .sort((a, b) => b.score - a.score)
-      .slice(0, 50);
+      .slice(0, 100);
 
     const withExploration = injectNewCards(scored, cards);
 
     return withExploration;
-  }
+  }, [userVector]);
 
   return { userVector, resetUserVector, interact, feed };
 }

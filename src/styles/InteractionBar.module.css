@@ -2,42 +2,27 @@
   display: flex;
   gap: var(--spacing-sm);
   align-items: center;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   background-color: var(--surface-color);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-1);
   border: 1px solid var(--divider-color);
+  margin-top: var(--spacing-sm);
 }
 
-.button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.0892857143em;
+.icon {
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xs);
 }
 
-.button:hover {
-  background-color: var(--primary-hover);
+.icon:hover {
+  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.button:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-.button.secondary {
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-}
-
-.button.secondary:hover {
-  background-color: rgba(25, 118, 210, 0.04);
+.icon:active {
+  transform: scale(0.95);
 }

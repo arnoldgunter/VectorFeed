@@ -1,9 +1,10 @@
 .feed {
-  max-width: 2400px;
-  width: 90%;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  box-sizing: border-box;
 }
 
 .header {
@@ -17,6 +18,12 @@
   font-size: 2rem;
   font-weight: 300;
   color: var(--text-primary);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: var(--spacing-md);
 }
 
 .resetButton {
@@ -42,20 +49,71 @@
   outline-offset: 2px;
 }
 
-.content {
-  display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
-  align-items: stretch;
-  gap: var(--spacing-lg);
+.toggleButton {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.toggleButton:hover {
+  background-color: var(--primary-hover);
+}
+
+.toggleButton:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 .cardsContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--spacing-md);
+  flex: 1;
 }
 
-.userChart {
-  min-height: 520px;
+.chartOverlay {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 90vw;
+  height: 90vh;
+  background-color: var(--surface-color);
+  border: 1px solid var(--divider-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+  box-sizing: border-box;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }

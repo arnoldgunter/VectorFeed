@@ -8,7 +8,7 @@ export function injectNewCards(scoredCards, allCards) {
     const randomCards = allCards
         .slice()
         .sort(() => Math.random() - 0.5)
-        .slice(0, 5);
+        .slice(0, 20);
 
     for (const card of randomCards) {
         const insertAt = Math.floor(Math.random() * (top.length + 1));
